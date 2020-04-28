@@ -31,9 +31,9 @@ public class JavaTest {
         for (int i = 0; i < n; i++)
             arr[i] = in.readInt();
 
-        for(int i = 0; i < n; i++) {
-            for(int j = i+1; j < n; j++) {
-                if(Math.abs(arr[i]-arr[j]) == k) {
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(arr[i] - arr[j]) == k) {
                     cnt++;
                 }
             }
