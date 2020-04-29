@@ -26,8 +26,54 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        out.println(t);
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        heapSort(arr, n);
+        printArray(arr, n);
+    }
+
+    private static void heapSort(int[] arr, int n) {
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            swap(arr, 0, i);
+            heapify(arr, i, 0);
+        }
+    }
+
+    private static void printArray(int[] arr, int n) {
+        for (int i = 0; i < n; i++) {
+            out.print(arr[i] + " ");
+        }
+        out.println();
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    private static void heapify(int[] arr, int n, int root) {
+        int max = root;
+        int left = 2 * root + 1;
+        int right = 2 * root + 2;
+
+        if (left < n && arr[left] > arr[root])
+            max = left;
+
+        if (right < n && arr[right] > arr[root])
+            max = right;
+
+        if (max != root) {
+            swap(arr, root, max);
+            heapify(arr, n, max);
+        }
     }
 
     private static class FastScanner {
