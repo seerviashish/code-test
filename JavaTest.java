@@ -32,7 +32,6 @@ public class JavaTest {
             arr[i] = sc.nextInt();
         }
         heapSort(arr, n);
-        printArray(arr, n);
     }
 
     private static void heapSort(int[] arr, int n) {
@@ -44,6 +43,7 @@ public class JavaTest {
             swap(arr, 0, i);
             heapify(arr, i, 0);
         }
+        printArray(arr, n);
     }
 
     private static void printArray(int[] arr, int n) {
@@ -64,10 +64,10 @@ public class JavaTest {
         int left = 2 * root + 1;
         int right = 2 * root + 2;
 
-        if (left < n && arr[left] > arr[root])
+        if (left < n && arr[left] > arr[max])
             max = left;
 
-        if (right < n && arr[right] > arr[root])
+        if (right < n && arr[right] > arr[max])
             max = right;
 
         if (max != root) {
