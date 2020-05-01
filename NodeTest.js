@@ -15,10 +15,10 @@ rl.on("close", () => {
   const test = parseInt(input[0]);
   for (let t = 0; t < test; t++) {
     const n = parseInt(input[1]);
-    print(n);
+    println(n);
   }
 });
 
-const print = (value) => {
-  console.log("\nResult: ", value);
+const println = (value) => {
+  console.log("\n", value);
 };
