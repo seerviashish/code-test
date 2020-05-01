@@ -14,11 +14,11 @@ rl.on("line", (lineInput) => {
 rl.on("close", () => {
   const test = parseInt(input[0]);
   for (let t = 0; t < test; t++) {
-    const n = parseInt(input[1]);
+    const n = parseInt(input[t + 1]);
     println(n);
   }
 });
 
 const println = (value) => {
-  console.log("\n", value);
+  console.log(value);
 };
