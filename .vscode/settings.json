@@ -5,6 +5,5 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "editor.formatOnSave": true,
-  "C_Cpp.clang_format_style": "./include/format.cpp"
+  "editor.formatOnSave": true
 }
