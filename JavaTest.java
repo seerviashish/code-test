@@ -33,8 +33,13 @@ public class JavaTest {
         for (int i = 0; i < t; i++) {
             mt.add(sc.nextInt());
         }
-        System.out.println("Zig-Zag Tree");
+        System.out.println("pre Tree");
         mt.preOrder();
+        System.out.println("post Tree");
+        mt.postOrder();
+        System.out.println("in Tree");
+        mt.inOrder();
+
     }
 
     private static class FastScanner {

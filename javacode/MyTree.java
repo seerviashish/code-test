@@ -66,11 +66,7 @@ public class MyTree {
         if (root == null) {
             return;
         }
-        if (parent != null) {
-            System.out.println(parent.value + " -> " + (parent.left == root ? "LEFT" : "RIGHT") + " : " + root.value);
-        } else {
-            System.out.println("Head " + root.value);
-        }
+        System.out.println(root.value);
         preOrderUtil(root.left, root);
         preOrderUtil(root.right, root);
     }
@@ -81,11 +77,7 @@ public class MyTree {
         }
         preOrderUtil(root.left, root);
         preOrderUtil(root.right, root);
-        if (parent != null) {
-            System.out.println(parent.value + " -> " + (parent.left == root ? "LEFT" : "RIGHT") + " : " + root.value);
-        } else {
-            System.out.println("Head " + root.value);
-        }
+        System.out.println(root.value);
     }
 
     private void inOrderUtil(Node root, Node parent) {
@@ -93,11 +85,7 @@ public class MyTree {
             return;
         }
         preOrderUtil(root.left, root);
-        if (parent != null) {
-            System.out.println(parent.value + " -> " + (parent.left == root ? "LEFT" : "RIGHT") + " : " + root.value);
-        } else {
-            System.out.println("Head " + root.value);
-        }
+        System.out.println(root.value);
         preOrderUtil(root.right, root);
     }
 }
