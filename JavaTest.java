@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
+import javacode.MyList;
+
 public class JavaTest {
     private static PrintWriter out = new PrintWriter(System.out);
     private static FastScanner sc;
@@ -27,10 +29,13 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
+        MyList ml = new MyList();
         for (int i = 0; i < t; i++) {
             int num = sc.nextInt();
-            System.out.println(num);
+            ml.push(num);
         }
+        ml.print();
+        System.out.println(ml.findMiddle());
     }
 
     private static class FastScanner {
