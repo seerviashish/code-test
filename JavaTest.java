@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
+import javacode.MyTree;
+
 public class JavaTest {
     private static PrintWriter out = new PrintWriter(System.out);
     private static FastScanner sc;
@@ -27,10 +29,12 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
+        MyTree mt = new MyTree();
         for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+            mt.add(sc.nextInt());
         }
+        System.out.println("Zig-Zag Tree");
+        mt.preOrder();
     }
 
     private static class FastScanner {
