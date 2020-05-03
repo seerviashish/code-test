@@ -27,10 +27,61 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+            }
+            int maxSum = findMaxSubArraySum(arr, n);
+            int minSum = findMinSubArraySum(arr, n);
+            System.out.println("Max Sum :=> " + maxSum);
+            System.out.println("Min Sum :=> " + minSum);
         }
+    }
+
+    private static int findMaxSubArraySum(int[] arr, int size) {
+        int max = Integer.MIN_VALUE;
+        int last = 0;
+        int last_index = 0;
+        int first_index = 0;
+        int temp_first = 0;
+        for (int i = 0; i < size; i++) {
+            last = last + arr[i];
+            if (last > max) {
+                max = last;
+                first_index = temp_first + 1;
+                last_index = i;
+            }
+            if (last < 0) {
+                last = 0;
+                temp_first = i;
+            }
+        }
+        System.out.println("[Max] first_inde = " + first_index + "last_index = " + last_index);
+        return max;
+    }
+
+    private static int findMinSubArraySum(int[] arr, int size) {
+        int min = Integer.MAX_VALUE;
+        int last = 0;
+        int first_index = 0;
+        int last_index = 0;
+        int temp_first = 0;
+        for (int i = 0; i < size; i++) {
+            last = last + arr[i];
+            if (last < min) {
+                min = last;
+                first_index = temp_first + 1;
+                last_index = i;
+            }
+            if (last > 0) {
+                last = 0;
+                temp_first = i;
+            }
+        }
+        System.out.println("[Min] first_inde = " + first_index + "last_index = " + last_index);
+        return min;
     }
 
     private static class FastScanner {
