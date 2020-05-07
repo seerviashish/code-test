@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -25,23 +27,58 @@ public class JavaTest {
         out.close();
     }
 
+    private static class Friend {
+        long money;
+        long fact;
+
+        Friend(long money, long fact) {
+            this.money = money;
+            this.fact = fact;
+        }
+
+        @Override
+        public String toString() {
+            return "Money -> " + this.money + "  Fact -> " + this.fact;
+        }
+
+    }
+
     private static void main() throws Exception {
         int n = sc.nextInt();
-        int arr[] = new int[n];
+        long d = sc.nextLong();
+        ArrayList<Friend> friends = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+            long money = sc.nextLong();
+            long fact = sc.nextLong();
+            friends.add(new Friend(money, fact));
         }
-        int maxLen = 0;
-        int cnt = 0;
-        for (int i = 0; i < n - 1; i++) {
-            if (arr[i + 1] >= arr[i]) {
-                cnt++;
-            } else {
-                cnt = 0;
+        friends.sort(new Comparator<Friend>() {
+            public int compare(Friend f1, Friend f2) {
+                if (f2.money > f1.money) {
+                    return -1;
+                } else if (f2.money < f1.money) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
-            maxLen = Math.max(cnt, maxLen);
+        });
+        long maxFact = 0;
+        long cnt = 0;
+        int i = 0, j = 0;
+        while (j < n) {
+            Friend fi = friends.get(i);
+            Friend fj = friends.get(j);
+            if (fj.money - fi.money >= d) {
+                i++;
+                cnt -= fi.fact;
+            } else {
+                j++;
+                cnt += fj.fact;
+                maxFact = Math.max(cnt, maxFact);
+            }
         }
-        System.out.println(maxLen + 1);
+        System.out.println(maxFact);
     }
 
     private static class FastScanner {
