@@ -26,11 +26,22 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
         }
+        int maxLen = 0;
+        int cnt = 0;
+        for (int i = 0; i < n - 1; i++) {
+            if (arr[i + 1] >= arr[i]) {
+                cnt++;
+            } else {
+                cnt = 0;
+            }
+            maxLen = Math.max(cnt, maxLen);
+        }
+        System.out.println(maxLen + 1);
     }
 
     private static class FastScanner {
