@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -27,58 +26,48 @@ public class JavaTest {
         out.close();
     }
 
-    private static class Friend {
-        long money;
-        long fact;
-
-        Friend(long money, long fact) {
-            this.money = money;
-            this.fact = fact;
-        }
-
-        @Override
-        public String toString() {
-            return "Money -> " + this.money + "  Fact -> " + this.fact;
-        }
-
-    }
+    private static int ans = 0;
+    private static int m;
+    private static int[] arr;
+    private static ArrayList<Integer>[] tree;
 
     private static void main() throws Exception {
         int n = sc.nextInt();
-        long d = sc.nextLong();
-        ArrayList<Friend> friends = new ArrayList<>(n);
-        for (int i = 0; i < n; i++) {
-            long money = sc.nextLong();
-            long fact = sc.nextLong();
-            friends.add(new Friend(money, fact));
+        m = sc.nextInt();
+        arr = new int[n + 1];
+        tree = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
+            arr[i] = sc.nextInt();
+            tree[i] = new ArrayList<>();
         }
-        friends.sort(new Comparator<Friend>() {
-            public int compare(Friend f1, Friend f2) {
-                if (f2.money > f1.money) {
-                    return -1;
-                } else if (f2.money < f1.money) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        });
-        long maxFact = 0;
-        long cnt = 0;
-        int i = 0, j = 0;
-        while (j < n) {
-            Friend fi = friends.get(i);
-            Friend fj = friends.get(j);
-            if (fj.money - fi.money >= d) {
-                i++;
-                cnt -= fi.fact;
+        for (int i = 1; i < n; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            tree[x].add(y);
+            tree[y].add(x);
+        }
+        dfs(1, arr[1], 0);
+        System.out.println(ans);
+    }
+
+    private static void dfs(int child, int cat, int parent) {
+        if (cat > m) {
+            return;
+        }
+        if (tree[child].size() == 1 && child != 1) {
+            ans++;
+            return;
+        }
+        for (int i = 0; i < tree[child].size(); i++) {
+            int childOfChild = tree[child].get(i);
+            if (childOfChild == parent)
+                continue;
+            if (arr[childOfChild] != 0) {
+                dfs(childOfChild, cat + 1, child);
             } else {
-                j++;
-                cnt += fj.fact;
-                maxFact = Math.max(cnt, maxFact);
+                dfs(childOfChild, 0, child);
             }
         }
-        System.out.println(maxFact);
     }
 
     private static class FastScanner {
