@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,48 +27,28 @@ public class JavaTest {
         out.close();
     }
 
-    private static int ans = 0;
-    private static int m;
-    private static int[] arr;
-    private static ArrayList<Integer>[] tree;
+    private static int[] arr = new int[3];
+    private static int[] dp = new int[4001];
 
     private static void main() throws Exception {
         int n = sc.nextInt();
-        m = sc.nextInt();
-        arr = new int[n + 1];
-        tree = new ArrayList[n + 1];
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < 3; i++)
             arr[i] = sc.nextInt();
-            tree[i] = new ArrayList<>();
-        }
-        for (int i = 1; i < n; i++) {
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            tree[x].add(y);
-            tree[y].add(x);
-        }
-        dfs(1, arr[1], 0);
-        System.out.println(ans);
+        Arrays.fill(dp, -1);
+        System.out.println(cutRibbon(n));
     }
 
-    private static void dfs(int child, int cat, int parent) {
-        if (cat > m) {
-            return;
+    private static int cutRibbon(int n) {
+        if (n < 0) {
+            return Integer.MIN_VALUE;
         }
-        if (tree[child].size() == 1 && child != 1) {
-            ans++;
-            return;
+        if (n == 0) {
+            return 0;
         }
-        for (int i = 0; i < tree[child].size(); i++) {
-            int childOfChild = tree[child].get(i);
-            if (childOfChild == parent)
-                continue;
-            if (arr[childOfChild] != 0) {
-                dfs(childOfChild, cat + 1, child);
-            } else {
-                dfs(childOfChild, 0, child);
-            }
+        if (dp[n] != -1) {
+            return dp[n];
         }
+        return dp[n] = Math.max(Math.max(cutRibbon(n - arr[0]), cutRibbon(n - arr[1])), cutRibbon(n - arr[2])) + 1;
     }
 
     private static class FastScanner {
