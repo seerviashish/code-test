@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -27,28 +25,19 @@ public class JavaTest {
         out.close();
     }
 
-    private static int[] arr = new int[3];
-    private static int[] dp = new int[4001];
+    private static int[] arr = { 1, 5, 10, 20, 100 };
 
     private static void main() throws Exception {
-        int n = sc.nextInt();
-        for (int i = 0; i < 3; i++)
-            arr[i] = sc.nextInt();
-        Arrays.fill(dp, -1);
-        System.out.println(cutRibbon(n));
-    }
-
-    private static int cutRibbon(int n) {
-        if (n < 0) {
-            return Integer.MIN_VALUE;
+        long n = sc.nextLong();
+        int ans = 0, index = 4;
+        while (n > 0) {
+            if (n >= arr[index]) {
+                ans += n / arr[index];
+                n = n % arr[index];
+            }
+            index--;
         }
-        if (n == 0) {
-            return 0;
-        }
-        if (dp[n] != -1) {
-            return dp[n];
-        }
-        return dp[n] = Math.max(Math.max(cutRibbon(n - arr[0]), cutRibbon(n - arr[1])), cutRibbon(n - arr[2])) + 1;
+        System.out.println(ans);
     }
 
     private static class FastScanner {
