@@ -25,21 +25,22 @@ public class JavaTest {
         out.close();
     }
 
+    private static long[] dp = new long[100001];
+    private static int[] cnt = new int[100001];
+
     private static void main() throws Exception {
         int n = sc.nextInt();
-        long[] arr = new long[n];
-        for (int i = 0; i < n; i++)
-            arr[i] = sc.nextLong();
-        int min = Integer.MAX_VALUE;
-        int pos = 0;
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            int t = (int) Math.ceil((arr[i] - i) * 1.0 / n);
-            if (t < min) {
-                min = t;
-                pos = i;
-            }
+            arr[i] = sc.nextInt();
+            cnt[arr[i]]++;
         }
-        System.out.println(pos + 1);
+        dp[0] = 0;
+        dp[1] = cnt[1];
+        for (int i = 2; i <= 100000; i++) {
+            dp[i] = Math.max(dp[i - 1], (dp[i - 2] + 1L * i * cnt[i]));
+        }
+        System.out.println(dp[100000]);
     }
 
     private static class FastScanner {
