@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,38 +27,32 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
+        int max = Integer.MIN_VALUE;
         int n = sc.nextInt();
-        while (n-- > 0) {
-            String str = sc.nextToken();
-            if (str.matches("R[0-9]+C[0-9]+")) {
-
-                String[] nums = str.split("R|C");
-                int x = Integer.parseInt(nums[2]);
-                String st = "";
-                while (x != 0) {
-                    if (x % 26 != 0) {
-                        st = (char) ('A' + (x % 26) - 1) + st;
-                    } else {
-                        st = 'Z' + st;
-                        x = x - 26;
-                    }
-                    x = x / 26;
-                }
-
-                System.out.println(st + nums[1]);
-
+        String[] players = new String[n];
+        int[] score = new int[n];
+        HashMap<String, Integer> cntMp = new HashMap<>();
+        HashMap<String, Integer> temp = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            players[i] = sc.nextToken();
+            score[i] = sc.nextInt();
+            if (!cntMp.containsKey(players[i])) {
+                cntMp.put(players[i], score[i]);
             } else {
-                String num = str.replaceAll("[0-9]", "");
-                int x = 0;
-                int len = num.length();
-                for (int i = len - 1; i >= 0; --i) {
-                    x += ((int) (num.charAt(i) - 'A') + 1) * Math.pow(26, (len - i - 1));
-                }
-
-                System.out.println("R" + str.replaceAll("[A-Z]", "") + "C" + x);
-
+                cntMp.put(players[i], cntMp.get(players[i]) + score[i]);
             }
         }
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, cntMp.get(players[i]));
+            temp.put(players[i], 0);
+        }
+        int i = 0;
+        for (i = 0; i < n; i++) {
+            temp.put(players[i], temp.get(players[i]) + score[i]);
+            if (cntMp.get(players[i]) >= max && temp.get(players[i]) >= max)
+                break;
+        }
+        System.out.println(players[i]);
     }
 
     private static class FastScanner {
