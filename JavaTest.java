@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -27,32 +26,46 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int max = Integer.MIN_VALUE;
-        int n = sc.nextInt();
-        String[] players = new String[n];
-        int[] score = new int[n];
-        HashMap<String, Integer> cntMp = new HashMap<>();
-        HashMap<String, Integer> temp = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            players[i] = sc.nextToken();
-            score[i] = sc.nextInt();
-            if (!cntMp.containsKey(players[i])) {
-                cntMp.put(players[i], score[i]);
-            } else {
-                cntMp.put(players[i], cntMp.get(players[i]) + score[i]);
+        String s = sc.nextToken();
+        String t = sc.nextToken();
+        solve(s, t);
+    }
+
+    private static void solve(String s, String t) {
+        char sx = s.charAt(0);
+        char tx = t.charAt(0);
+        char sy = s.charAt(1);
+        char ty = t.charAt(1);
+
+        int dx = sx - tx;
+        int dy = sy - ty;
+
+        out.println(Math.max(Math.abs(dx), Math.abs(dy)));
+
+        while (dx != 0 || dy != 0) {
+            if (dx != 0) {
+                if (dx < 0) {
+                    out.print('R');
+                    sx++;
+                } else {
+                    out.print('L');
+                    sx--;
+                }
             }
+            if (dy != 0) {
+                if (dy < 0) {
+                    out.print('U');
+                    sy++;
+                } else {
+                    out.print('D');
+                    sy--;
+                }
+            }
+            out.println("");
+            dx = sx - tx;
+            dy = sy - ty;
         }
-        for (int i = 0; i < n; i++) {
-            max = Math.max(max, cntMp.get(players[i]));
-            temp.put(players[i], 0);
-        }
-        int i = 0;
-        for (i = 0; i < n; i++) {
-            temp.put(players[i], temp.get(players[i]) + score[i]);
-            if (cntMp.get(players[i]) >= max && temp.get(players[i]) >= max)
-                break;
-        }
-        System.out.println(players[i]);
+
     }
 
     private static class FastScanner {
