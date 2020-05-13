@@ -25,22 +25,39 @@ public class JavaTest {
         out.close();
     }
 
-    private static long[] dp = new long[100001];
-    private static int[] cnt = new int[100001];
-
     private static void main() throws Exception {
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-            cnt[arr[i]]++;
+        while (n-- > 0) {
+            String str = sc.nextToken();
+            if (str.matches("R[0-9]+C[0-9]+")) {
+
+                String[] nums = str.split("R|C");
+                int x = Integer.parseInt(nums[2]);
+                String st = "";
+                while (x != 0) {
+                    if (x % 26 != 0) {
+                        st = (char) ('A' + (x % 26) - 1) + st;
+                    } else {
+                        st = 'Z' + st;
+                        x = x - 26;
+                    }
+                    x = x / 26;
+                }
+
+                System.out.println(st + nums[1]);
+
+            } else {
+                String num = str.replaceAll("[0-9]", "");
+                int x = 0;
+                int len = num.length();
+                for (int i = len - 1; i >= 0; --i) {
+                    x += ((int) (num.charAt(i) - 'A') + 1) * Math.pow(26, (len - i - 1));
+                }
+
+                System.out.println("R" + str.replaceAll("[A-Z]", "") + "C" + x);
+
+            }
         }
-        dp[0] = 0;
-        dp[1] = cnt[1];
-        for (int i = 2; i <= 100000; i++) {
-            dp[i] = Math.max(dp[i - 1], (dp[i - 2] + 1L * i * cnt[i]));
-        }
-        System.out.println(dp[100000]);
     }
 
     private static class FastScanner {
