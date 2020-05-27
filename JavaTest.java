@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,10 +29,18 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        int n = sc.nextInt();
+        Map<String, Integer> wordMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            String st = sc.nextToken();
+            if (wordMap.containsKey(st)) {
+                int num = wordMap.get(st) + 1;
+                wordMap.put(st, num);
+                System.out.println(st + wordMap.get(st));
+            } else {
+                wordMap.put(st, 0);
+                System.out.println("OK");
+            }
         }
     }
 
