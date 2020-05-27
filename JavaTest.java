@@ -26,11 +26,8 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
-        }
+        int num = sc.nextInt();
+        System.out.println(num % 2 != 0 || num == 2 ? "NO" : "YES");
     }
 
     private static class FastScanner {
