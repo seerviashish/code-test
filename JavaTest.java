@@ -26,10 +26,19 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        int d = sc.nextInt();
+        int sumTime = sc.nextInt();
+        int totalMinTime = 0, totalMaxTime = 0;
+        for (int i = 0; i < d; i++) {
+            int minTime = sc.nextInt();
+            int maxTime = sc.nextInt();
+            totalMinTime += minTime;
+            totalMaxTime += maxTime;
+        }
+        if (sumTime >= totalMinTime && sumTime <= totalMaxTime || d == 0) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
         }
     }
 
