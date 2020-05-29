@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,10 +27,48 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        ArrayList<String> lines = new ArrayList<>();
+        String line;
+        int maxLen = -1;
+        while ((line = sc.nextLine()) != null) {
+            lines.add(line);
+            int len = line.length();
+            if (len > maxLen) {
+                maxLen = len;
+            }
+        }
+
+        for (int i = 0; i <= lines.size() + 1; i++) {
+            if (i == 0 || i == lines.size() + 1) {
+                for (int j = 0; j < maxLen + 2; j++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            } else {
+                int index = i - 1;
+                String st = lines.get(index);
+                int space = maxLen - st.length();
+                int lSpace = 0;
+                int rSpace = 0;
+                if (space % 2 == 0) {
+                    rSpace = space / 2;
+                    lSpace = space / 2;
+                } else {
+                    lSpace = space / 2;
+                    rSpace = space - lSpace;
+
+                }
+                StringBuilder ans = new StringBuilder("*");
+                for (int j = 0; j < lSpace; j++) {
+                    ans.append(" ");
+                }
+                ans.append(st);
+                for (int j = 0; j < rSpace; j++) {
+                    ans.append(" ");
+                }
+                ans.append("*");
+                System.out.println(ans);
+            }
         }
     }
 
@@ -39,6 +78,10 @@ public class JavaTest {
 
         public FastScanner(InputStream stream) {
             br = new BufferedReader(new InputStreamReader(stream));
+        }
+
+        public String nextLine() throws IOException {
+            return br.readLine();
         }
 
         public String nextToken() {

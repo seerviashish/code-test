@@ -1,6 +1,7 @@
-5
-1
-2
-3
-4
-5
+welcome to the
+Codeforces
+Beta
+Round 5
+
+and
+good luck
