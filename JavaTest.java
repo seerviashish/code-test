@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,11 +27,26 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        String st = sc.nextToken();
+        Stack<Integer> stk = new Stack<>();
+        int maxLen = 0, index = 1;
+        for (int i = 0; i < st.length(); i++) {
+            if (st.charAt(i) == '(') {
+                stk.push(i);
+            } else {
+                if (!stk.empty() && st.charAt(stk.peek()) == '(') {
+                    int tempLen = i - stk.peek() + 1;
+                    if (tempLen > maxLen) {
+                        maxLen = tempLen;
+                        index = stk.peek() + 1;
+                    }
+                    stk.pop();
+                } else {
+                    stk.push(i);
+                }
+            }
         }
+        System.out.println(maxLen + " " + index);
     }
 
     private static class FastScanner {
