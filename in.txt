@@ -1,6 +1,7 @@
-5
-1
-2
-3
-4
-5
++Mike
+Mike:hello
++Kate
++Dmitry
+-Dmitry
+Kate:hi
+-Kate

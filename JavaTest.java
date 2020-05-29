@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -26,11 +30,24 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        Set<String> online = new HashSet<>();
+        String line;
+        long total = 0;
+        while ((line = sc.nextLine()) != null) {
+            if (line.charAt(0) == '+') {
+                String name = line.substring(1);
+                online.add(name);
+            } else if (line.charAt(0) == '-') {
+                String name = line.substring(1);
+                online.remove(name);
+            } else {
+                String[] arr = line.split(":");
+                if (arr.length > 1 && arr[1] != null) {
+                    total += online.size() * arr[1].length();
+                }
+            }
         }
+        System.out.println(total);
     }
 
     private static class FastScanner {
@@ -39,6 +56,10 @@ public class JavaTest {
 
         public FastScanner(InputStream stream) {
             br = new BufferedReader(new InputStreamReader(stream));
+        }
+
+        public String nextLine() throws IOException {
+            return br.readLine();
         }
 
         public String nextToken() {
