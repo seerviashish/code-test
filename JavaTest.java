@@ -38,6 +38,8 @@ public class JavaTest {
             }
         }
 
+        boolean left = true;
+
         for (int i = 0; i <= lines.size() + 1; i++) {
             if (i == 0 || i == lines.size() + 1) {
                 for (int j = 0; j < maxLen + 2; j++) {
@@ -54,8 +56,15 @@ public class JavaTest {
                     rSpace = space / 2;
                     lSpace = space / 2;
                 } else {
-                    lSpace = space / 2;
-                    rSpace = space - lSpace;
+                    if (left) {
+                        lSpace = space / 2;
+                        rSpace = space - lSpace;
+                        left = false;
+                    } else {
+                        rSpace = space / 2;
+                        lSpace = space - rSpace;
+                        left = true;
+                    }
 
                 }
                 StringBuilder ans = new StringBuilder("*");
