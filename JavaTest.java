@@ -3,7 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -27,26 +28,30 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        String st = sc.nextToken();
-        Stack<Integer> stk = new Stack<>();
-        int maxLen = 0, index = 1;
-        for (int i = 0; i < st.length(); i++) {
-            if (st.charAt(i) == '(') {
-                stk.push(i);
+        String str = sc.nextToken();
+        int n = str.length();
+        Deque<Integer> stack = new LinkedList<>();
+        stack.offerFirst(-1);
+        int max = 0;
+        int countMax = 0;
+        for (int i = 0; i < n; i++) {
+            if (str.charAt(i) == '(') {
+                stack.offerFirst(i);
             } else {
-                if (!stk.empty() && st.charAt(stk.peek()) == '(') {
-                    int tempLen = i - stk.peek() + 1;
-                    if (tempLen > maxLen) {
-                        maxLen = tempLen;
-                        index = stk.peek() + 1;
-                    }
-                    stk.pop();
+                stack.pollFirst();
+                if (stack.isEmpty()) {
+                    stack.offerFirst(i);
                 } else {
-                    stk.push(i);
+                    if (i - stack.peekFirst() > max) {
+                        max = i - stack.peekFirst();
+                        countMax = 1;
+                    } else if (i - stack.peekFirst() == max) {
+                        countMax++;
+                    }
                 }
             }
         }
-        System.out.println(maxLen + " " + index);
+        System.out.println(max + " " + (max == 0 ? 1 : countMax));
     }
 
     private static class FastScanner {
