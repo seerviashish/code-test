@@ -27,10 +27,46 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+            }
+            System.out.println(canServeAll(arr, n) ? "YES" : "NO");
         }
+    }
+
+    private static boolean canServeAll(int[] arr, int n) {
+        int w5 = 0, w10 = 0;
+        boolean ans = true;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] >= 5) {
+                if (arr[i] == 5) {
+                    w5++;
+                }
+                if (arr[i] == 10) {
+                    w10++;
+                }
+                if (arr[i] - 5 == 0) {
+                } else if (arr[i] - 5 == 5 && w5 > 0) {
+                    w5--;
+                } else if (arr[i] - 5 == 10 && (w10 > 0 || w5 >= 2)) {
+                    if (w10 > 0) {
+                        w10--;
+                    } else if (w5 >= 2) {
+                        w5 -= 2;
+                    }
+                } else {
+                    ans = false;
+                    break;
+                }
+            } else {
+                ans = false;
+                break;
+            }
+        }
+        return ans;
     }
 
     private static class FastScanner {
