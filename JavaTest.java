@@ -27,9 +27,20 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int totalPrice = 0, sellPrice = 0;
+            for (int i = 0; i < n; i++) {
+                int price = sc.nextInt();
+                if (price > k) {
+                    sellPrice += k;
+                } else {
+                    sellPrice += price;
+                }
+                totalPrice += price;
+            }
+            System.out.println(totalPrice - sellPrice);
         }
     }
 
