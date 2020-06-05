@@ -27,9 +27,20 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            String st = sc.nextToken();
+            int i;
+            int pair = 0;
+            for (i = 1; i < st.length();) {
+                if ((st.charAt(i - 1) == 'x' && st.charAt(i) == 'y')
+                        || (st.charAt(i - 1) == 'y' && st.charAt(i) == 'x')) {
+                    pair += 1;
+                    i += 2;
+                } else {
+                    i++;
+                }
+            }
+            System.out.println(pair);
         }
     }
 
