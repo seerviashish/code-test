@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -28,30 +26,22 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        String str = sc.nextToken();
-        int n = str.length();
-        Deque<Integer> stack = new LinkedList<>();
-        stack.offerFirst(-1);
-        int max = 0;
-        int countMax = 0;
-        for (int i = 0; i < n; i++) {
-            if (str.charAt(i) == '(') {
-                stack.offerFirst(i);
-            } else {
-                stack.pollFirst();
-                if (stack.isEmpty()) {
-                    stack.offerFirst(i);
-                } else {
-                    if (i - stack.peekFirst() > max) {
-                        max = i - stack.peekFirst();
-                        countMax = 1;
-                    } else if (i - stack.peekFirst() == max) {
-                        countMax++;
-                    }
-                }
-            }
+        int a = sc.nextInt(), vmax = sc.nextInt();
+        int l = sc.nextInt(), d = sc.nextInt(), w = Math.min(sc.nextInt(), vmax);
+
+        double d2 = w * w / 2.0 / a;
+        if (d2 < d) {
+            double x = d - d2;
+            double v = Math.min(vmax, Math.sqrt(w * w + x * a));
+            double d3 = x - (v * v - w * w) / a;
+            double t1 = 1.0 * w / a + (v - w) / a * 2 + d3 / v;
+            double v2 = Math.min(vmax, Math.sqrt(w * w + 2 * a * (l - d)));
+            double t2 = (v2 - w) / a + (l - d - (v2 * v2 - w * w) / 2 / a) / v2;
+            System.out.println(t1 + t2);
+        } else {
+            double v = Math.min(vmax, Math.sqrt(2 * a * l));
+            System.out.println(v / a + (l - v * v / 2 / a) / v);
         }
-        System.out.println(max + " " + (max == 0 ? 1 : countMax));
     }
 
     private static class FastScanner {
