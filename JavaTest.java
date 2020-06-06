@@ -27,9 +27,31 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            boolean right = true;
+            int start = 1;
+            for (int i = 1; i <= n; i++) {
+                String st = new String();
+                for (int j = 1; j <= n; j++) {
+                    if (right) {
+                        if (j < n) {
+                            st = st + start + " ";
+                        } else {
+                            st = st + start;
+                        }
+                    } else {
+                        if (j < n) {
+                            st = " " + start + st;
+                        } else {
+                            st = start + st;
+                        }
+                    }
+                    start++;
+                }
+                right = !right;
+                System.out.println(st);
+            }
         }
     }
 
