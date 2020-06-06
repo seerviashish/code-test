@@ -27,10 +27,39 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++)
+                arr[i] = sc.nextInt();
+            int ans = dishCountLoop(arr, 0);
+            System.out.println(ans);
         }
+    }
+
+    private static int dishCountLoop(int[] arr, int index) {
+        boolean prev = false;
+        int[] maxType = new int[1001];
+        int ans = 0;
+        int type = 1;
+        for (int i = 0; i < arr.length; i++) {
+            if (prev) {
+                if (arr[i - 1] == arr[i]) {
+                    prev = false;
+                } else {
+                    maxType[arr[i]]++;
+                    prev = true;
+                }
+            } else {
+                maxType[arr[i]]++;
+                prev = true;
+            }
+            if (maxType[arr[i]] >= ans) {
+                type = Math.min(type, arr[i]);
+            }
+            ans = Math.max(ans, maxType[arr[i]]);
+        }
+        return type;
     }
 
     private static class FastScanner {
