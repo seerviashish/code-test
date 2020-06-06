@@ -27,9 +27,25 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt(), a = sc.nextInt(), b = sc.nextInt(), c = sc.nextInt(), d = sc.nextInt(),
+                    p = sc.nextInt(), q = sc.nextInt(), y = sc.nextInt();
+            int[] pos = new int[n];
+            for (int i = 0; i < n; i++)
+                pos[i] = sc.nextInt();
+            int timeWalk = Math.abs((pos[b - 1] - pos[a - 1]) * p);
+
+            int timeAC = Math.abs((pos[a - 1] - pos[c - 1]) * p);
+            int timeCD = Math.abs((pos[c - 1] - pos[d - 1]) * q);
+            int timeDB = Math.abs((pos[d - 1] - pos[b - 1]) * p);
+
+            int timeTrain = y + timeCD + timeDB;
+
+            if (timeAC <= y) {
+                System.out.println(Math.min(timeWalk, timeTrain));
+            } else {
+                System.out.println(timeWalk);
+            }
         }
     }
 
