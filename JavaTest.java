@@ -28,9 +28,16 @@ public class JavaTest {
     private static void main() throws Exception {
         int t = sc.nextInt();
         for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+            long ts = sc.nextLong();
+            System.out.println(getAns(ts));
         }
+    }
+
+    private static long getAns(long ts) {
+        while (ts % 2 == 0) {
+            ts /= 2;
+        }
+        return ts / 2;
     }
 
     private static class FastScanner {
