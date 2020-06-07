@@ -27,10 +27,28 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int a = sc.nextInt();
+            int k = sc.nextInt();
+
+            int anglesSum = (n - 2) * 180;
+            int dnum = 2 * (anglesSum - a * n);
+            int dden = n * (n - 1);
+
+            int kan = a * dden + (k - 1) * dnum;
+            int gcd = gcd(kan, dden);
+            System.out.println(kan / gcd + " " + dden / gcd);
+
         }
+    }
+
+    private static int gcd(int a, int b) {
+        if (a == 0 || b == 0)
+            return 1;
+        if (a % b == 0)
+            return b;
+        return gcd(b, a % b);
     }
 
     private static class FastScanner {
