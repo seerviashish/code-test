@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -25,11 +27,43 @@ public class JavaTest {
         out.close();
     }
 
+    private static class WordsState {
+        int spamCnt;
+        int notSpamCnt;
+
+        public WordsState(int spamCnt, int notSpamCnt) {
+            this.spamCnt = spamCnt;
+            this.notSpamCnt = notSpamCnt;
+        }
+
+    }
+
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            HashMap<String, WordsState> mp = new HashMap<>();
+            for (int i = 0; i < n; i++) {
+                String st = sc.nextToken();
+                int s = sc.nextInt();
+                if (mp.containsKey(st)) {
+                    WordsState ws = mp.get(st);
+                    if (s == 0) {
+                        ws.notSpamCnt++;
+                    } else {
+                        ws.spamCnt++;
+                    }
+                } else {
+                    WordsState ws = s == 0 ? new WordsState(0, 1) : new WordsState(1, 0);
+                    mp.put(st, ws);
+                }
+            }
+
+            int ans = 0;
+            for (Map.Entry<String, WordsState> entry : mp.entrySet()) {
+                ans += Math.max(entry.getValue().notSpamCnt, entry.getValue().spamCnt);
+            }
+            System.out.println(ans);
         }
     }
 
