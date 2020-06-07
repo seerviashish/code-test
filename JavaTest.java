@@ -27,9 +27,36 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        while (t-- > 0) {
+            int n = sc.nextInt(), h = sc.nextInt(), y1 = sc.nextInt(), y2 = sc.nextInt(), l = sc.nextInt();
+            int cnt = 0;
+            int duck = h - y1;
+            int jump = y2;
+            boolean couldPass = true;
+            for (int i = 0; i < n; i++) {
+                boolean pass = false;
+                int ti = sc.nextInt();
+                int br = sc.nextInt();
+                if (couldPass) {
+                    if (ti == 1 && duck <= br) {
+                        cnt++;
+                        pass = true;
+                    }
+                    if (ti == 2 && jump >= br) {
+                        cnt++;
+                        pass = true;
+                    }
+                    if (l > 1 && !pass) {
+                        cnt++;
+                        l--;
+                        pass = true;
+                    }
+                    if (!pass) {
+                        couldPass = false;
+                    }
+                }
+            }
+            System.out.println(cnt);
         }
     }
 
