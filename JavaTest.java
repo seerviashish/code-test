@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public class JavaTest {
@@ -25,12 +29,52 @@ public class JavaTest {
         out.close();
     }
 
-    private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+    private static void calculate(HashSet<String> temp, HashSet<String> njoin, HashSet<String> chrunUp,
+            HashSet<String> resurct) {
+        Iterator<String> it = temp.iterator();
+        while (it.hasNext()) {
+            String ut = it.next();
+            if (!njoin.contains(ut) && !(chrunUp.contains(ut) || resurct.contains(ut))) {
+                njoin.add(ut);
+            } else if (chrunUp.contains(ut)) {
+                chrunUp.remove(ut);
+                resurct.add(ut);
+            }
         }
+        Iterator<String> it2 = njoin.iterator();
+        while (it2.hasNext()) {
+            String ut2 = it2.next();
+            if (!temp.contains(ut2)) {
+                chrunUp.add(ut2);
+                it2.remove();
+            }
+        }
+    }
+
+    private static void main() throws Exception {
+        int n = sc.nextInt();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        HashSet<String> temp = new HashSet<>();
+        HashSet<String> njoin = new HashSet<>();
+        HashSet<String> chrunUp = new HashSet<>();
+        HashSet<String> resurct = new HashSet<>();
+        Date prev = null;
+        for (int i = 0; i < n; i++) {
+            Date date = dateFormat.parse(sc.nextToken());
+            String u = sc.nextToken();
+            if (prev == null || prev.equals(date)) {
+                prev = date;
+                temp.add(u);
+            } else {
+                calculate(temp, njoin, chrunUp, resurct);
+                System.out.println(njoin.size() + " " + chrunUp.size() + " " + resurct.size());
+                temp.clear();
+                prev = date;
+                temp.add(u);
+            }
+        }
+        calculate(temp, njoin, chrunUp, resurct);
+        System.out.println(njoin.size() + " " + chrunUp.size() + " " + resurct.size());
     }
 
     private static class FastScanner {
