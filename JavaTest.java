@@ -26,11 +26,30 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int num = sc.nextInt();
-            System.out.println(num);
+        System.out.println(myFun("123123", 0, 5));
+    }
+
+    private static boolean sumOfTwo(String str1, String str2) {
+        int s1 = 0, s2 = 0;
+        for (int i = 0; i < str1.length(); i++) {
+            s1 += Integer.parseInt(str1.charAt(i) + "");
         }
+        for (int i = 0; i < str2.length(); i++) {
+            s2 += Integer.parseInt(str2.charAt(i) + "");
+        }
+        return s1 == s2;
+
+    }
+
+    private static int myFun(String st, int start, int end) {
+        if (start > end) {
+            return 0;
+        }
+        int mid = (start + end) / 2;
+        if (sumOfTwo(st.substring(start, mid + 1), st.substring(mid + 1, end + 1))) {
+            return end - start + 1;
+        }
+        return Math.max(myFun(st, start, end - 2), Math.max(myFun(st, start + 2, end), myFun(st, start + 1, end - 1)));
     }
 
     private static class FastScanner {
