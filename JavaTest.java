@@ -1,5 +1,6 @@
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class JavaTest {
@@ -23,8 +24,25 @@ public class JavaTest {
     }
 
     private static void main() throws Exception {
-        int t = sc.nextInt();
-        System.out.println(t);
+        int n = sc.nextInt();
+        int h = sc.nextInt();
+        long[] arr = new long[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextLong();
+        }
+
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            Arrays.sort(arr, 0, i + 1);
+            long sum = 0;
+            for (int j = i; j >= 0; j -= 2) {
+                sum += arr[j];
+            }
+            if (sum <= h) {
+                ans = i + 1;
+            }
+        }
+        System.out.println(ans);
     }
 
 }
