@@ -24,7 +24,38 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        System.out.println(t);
+        while (t-- > 0) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int z = sc.nextInt();
+            int a, b, c;
+            if (x == y && y == z) {
+                a = b = c = x;
+                System.out.println("YES");
+                System.out.println(a + " " + b + " " + c);
+            } else if (x == y && x > z) {
+                a = x;
+                b = z;
+                c = z;
+                System.out.println("YES");
+                System.out.println(a + " " + b + " " + c);
+            } else if (x == z && x > y) {
+                b = x;
+                a = y;
+                c = y;
+                System.out.println("YES");
+                System.out.println(a + " " + b + " " + c);
+            } else if (y == z && y > x) {
+                c = y;
+                a = x;
+                b = x;
+                System.out.println("YES");
+                System.out.println(a + " " + b + " " + c);
+            } else {
+                System.out.println("NO");
+            }
+
+        }
     }
 
 }
