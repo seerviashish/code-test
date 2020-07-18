@@ -1,5 +1,6 @@
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JavaTest {
@@ -24,7 +25,22 @@ public class JavaTest {
 
     private static void main() throws Exception {
         int t = sc.nextInt();
-        System.out.println(t);
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            ArrayList<Integer> p = new ArrayList<Integer>(2 * n);
+            for (int i = 0; i < 2 * n; i++) {
+                int x = sc.nextInt();
+                p.add(x);
+            }
+            while (p.size() > 0) {
+                int x = p.get(0);
+                System.out.print(x);
+                System.out.print(p.size() > 2 ? " " : "");
+                p.remove((Integer) x);
+                p.remove((Integer) x);
+            }
+            System.out.println();
+        }
     }
 
 }
